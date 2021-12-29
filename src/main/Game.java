@@ -1,24 +1,43 @@
 package main;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
+
 import javax.swing.JFrame;
+import javax.imageio.ImageIO;
 
 public class Game extends JFrame {
 
     private GameScreen gameScreen;
 
+    private BufferedImage img;
+
     // Constructor
     public Game() {
-        setSize(400, 400);
+
+        importImg();
+
+        setSize(700, 700);
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // null opens in the center
-        gameScreen = new GameScreen();
+
+        gameScreen = new GameScreen(img);
         add(gameScreen); // Add a JPanel to the JFrame
     }
 
-    public static void main(String[] args) {
-        System.out.println("Start of my TD Tutorial. Hello there.");
+    private void importImg() {
+        InputStream is = getClass().getResourceAsStream("/res/spriteatlas.png");
 
+        try {
+            img = ImageIO.read(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
         Game game = new Game();
     }
 }
