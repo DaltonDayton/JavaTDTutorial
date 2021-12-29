@@ -10,11 +10,10 @@ import javax.imageio.ImageIO;
 public class Game extends JFrame implements Runnable {
 
     private GameScreen gameScreen;
-    private BufferedImage img;
-    private Thread gameThread;
+    private transient BufferedImage img;
 
-    private final double FPS_SET = 120.0;
-    private final double UPS_SET = 60.0;
+    private static final double FPS_SET = 120.0;
+    private static final double UPS_SET = 60.0;
 
     public Game() {
         importImg();
@@ -39,6 +38,7 @@ public class Game extends JFrame implements Runnable {
     }
 
     private void start() {
+        Thread gameThread;
         gameThread = new Thread(this) {
         };
 

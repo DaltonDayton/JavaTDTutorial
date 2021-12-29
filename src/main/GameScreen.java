@@ -1,6 +1,5 @@
 package main;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
@@ -11,9 +10,9 @@ import javax.swing.JPanel;
 public class GameScreen extends JPanel {
 
     private Random random;
-    private BufferedImage img;
+    private transient BufferedImage img;
 
-    private ArrayList<BufferedImage> sprites = new ArrayList<>();
+    private transient ArrayList<BufferedImage> sprites = new ArrayList<>();
 
     public GameScreen(BufferedImage img) {
         this.img = img;
@@ -31,12 +30,10 @@ public class GameScreen extends JPanel {
         }
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         // calling superclass JPanel to do all of the graphic calc and drawing
         super.paintComponent(g);
-
-        // g.drawImage(sprites.get(8), 0, 0, null);
-        // g.drawImage(img.getSubimage(9 * 32, 1 * 32, 32, 32), 0, 0, null);
 
         for (int y = 0; y < 20; y++) {
             for (int x = 0; x < 20; x++) {
@@ -47,13 +44,5 @@ public class GameScreen extends JPanel {
 
     private int getRndInt(int x) {
         return random.nextInt(x);
-    }
-
-    private Color getRndColor() {
-        int r = random.nextInt(256);
-        int g = random.nextInt(256);
-        int b = random.nextInt(256);
-
-        return new Color(r, g, b);
     }
 }
