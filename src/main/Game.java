@@ -4,9 +4,12 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.swing.JFrame;
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
 
+/**
+ * @Summary The primary Game class
+ */
 public class Game extends JFrame implements Runnable {
 
     private GameScreen gameScreen;
@@ -15,6 +18,9 @@ public class Game extends JFrame implements Runnable {
     private static final double FPS_SET = 120.0;
     private static final double UPS_SET = 60.0;
 
+    /**
+     * @Summary Constructor
+     */
     public Game() {
         importImg();
 
@@ -24,9 +30,12 @@ public class Game extends JFrame implements Runnable {
 
         gameScreen = new GameScreen(img);
         add(gameScreen); // Add a JPanel to the JFrame
-        setVisible(true);
+        setVisible(true); // Must be at the end to display correctly
     }
 
+    /**
+     * @Summary Imports the sprite sheet
+     */
     private void importImg() {
         InputStream is = getClass().getResourceAsStream("/res/spriteatlas.png");
 
@@ -37,6 +46,9 @@ public class Game extends JFrame implements Runnable {
         }
     }
 
+    /**
+     * @Summary Starts the game on its own thread
+     */
     private void start() {
         Thread gameThread;
         gameThread = new Thread(this) {
@@ -45,11 +57,18 @@ public class Game extends JFrame implements Runnable {
         gameThread.start();
     }
 
+    /**
+     * @brief Main
+     * @param args
+     */
     public static void main(String[] args) {
         Game game = new Game();
         game.start();
     }
 
+    /**
+     * @Summary Ensures the program runs at the same game speed regardless of setup
+     */
     @Override
     public void run() {
         double timePerFrame = 1000000000.0 / FPS_SET;
@@ -63,14 +82,14 @@ public class Game extends JFrame implements Runnable {
         int updates = 0;
 
         while (true) {
-            // Render
+            // Render - repaint() as soon as time in timePerFrame has passed
             if (System.nanoTime() - lastFrame >= timePerFrame) {
                 repaint();
                 lastFrame = System.nanoTime();
                 frames++;
             }
 
-            // Update
+            // Update - update as soon as time in timePerUpdate has passed
             if (System.nanoTime() - lastUpdate >= timePerUpdate) {
                 lastUpdate = System.nanoTime();
                 updates++;

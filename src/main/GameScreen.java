@@ -1,12 +1,15 @@
 package main;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Random;
-import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+/**
+ * @Summary GameScreen handles drawing to the window.
+ */
 public class GameScreen extends JPanel {
 
     private Random random;
@@ -14,6 +17,10 @@ public class GameScreen extends JPanel {
 
     private transient ArrayList<BufferedImage> sprites = new ArrayList<>();
 
+    /**
+     * @Summary Constructor
+     * @param img The image containing the sprites.
+     */
     public GameScreen(BufferedImage img) {
         this.img = img;
 
@@ -22,6 +29,9 @@ public class GameScreen extends JPanel {
         random = new Random();
     }
 
+    /**
+     * @Summary Loads the sprites from the imported image into an ArrayList
+     */
     private void loadSprites() {
         for (int y = 0; y < 10; y++) {
             for (int x = 0; x < 10; x++) {
@@ -30,6 +40,9 @@ public class GameScreen extends JPanel {
         }
     }
 
+    /**
+     * @Summary Draws a grid to the window using the sprites as squares
+     */
     @Override
     public void paintComponent(Graphics g) {
         // calling superclass JPanel to do all of the graphic calc and drawing
@@ -42,6 +55,11 @@ public class GameScreen extends JPanel {
         }
     }
 
+    /**
+     * @Summary Generates a random int
+     * @param x The upper limit
+     * @return A randomly generated int
+     */
     private int getRndInt(int x) {
         return random.nextInt(x);
     }

@@ -1,6 +1,8 @@
 # Custom
 .vscode/
+.idea/
 bin/
+*.iml
 
 # Compiled class file
 *.class
