@@ -1,6 +1,7 @@
-package main;
+package com.tdtutorial;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -24,12 +25,12 @@ public class Game extends JFrame implements Runnable {
     public Game() {
         importImg();
 
-        setSize(640, 640);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // null opens in the center
+        setLocationRelativeTo(null); // null should open in the center
 
         gameScreen = new GameScreen(img);
         add(gameScreen); // Add a JPanel to the JFrame
+        pack(); // Let's the windowmanager set the size for us. Values given in the JPanel
         setVisible(true); // Must be at the end to display correctly
     }
 
@@ -37,7 +38,7 @@ public class Game extends JFrame implements Runnable {
      * @Summary Imports the sprite sheet
      */
     private void importImg() {
-        InputStream is = getClass().getResourceAsStream("/res/spriteatlas.png");
+        InputStream is = this.getClass().getClassLoader().getResourceAsStream("spriteatlas.png");
 
         try {
             img = ImageIO.read(is);
@@ -81,17 +82,21 @@ public class Game extends JFrame implements Runnable {
         int frames = 0;
         int updates = 0;
 
+        long now;
+
         while (true) {
+            now = System.nanoTime();
+
             // Render - repaint() as soon as time in timePerFrame has passed
-            if (System.nanoTime() - lastFrame >= timePerFrame) {
+            if (now - lastFrame >= timePerFrame) {
                 repaint();
-                lastFrame = System.nanoTime();
+                lastFrame = now;
                 frames++;
             }
 
             // Update - update as soon as time in timePerUpdate has passed
-            if (System.nanoTime() - lastUpdate >= timePerUpdate) {
-                lastUpdate = System.nanoTime();
+            if (now - lastUpdate >= timePerUpdate) {
+                lastUpdate = now;
                 updates++;
             }
 

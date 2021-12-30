@@ -1,7 +1,8 @@
-package main;
+package com.tdtutorial;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -15,6 +16,8 @@ public class GameScreen extends JPanel {
     private Random random;
     private transient BufferedImage img;
 
+    private Dimension size;
+
     private transient ArrayList<BufferedImage> sprites = new ArrayList<>();
 
     /**
@@ -24,9 +27,18 @@ public class GameScreen extends JPanel {
     public GameScreen(BufferedImage img) {
         this.img = img;
 
+        setPanelSize();
+
         loadSprites();
 
         random = new Random();
+    }
+
+    private void setPanelSize() {
+        size = new Dimension(640, 640);
+        setMinimumSize(size);
+        setPreferredSize(size);
+        setMaximumSize(size);
     }
 
     /**
