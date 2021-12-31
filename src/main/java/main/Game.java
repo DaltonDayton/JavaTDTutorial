@@ -1,12 +1,8 @@
-package com.tdtutorial;
+package main;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import inputs.KeyboardListener;
+import inputs.MyMouseListener;
 
 /**
  * @Summary The primary Game class
@@ -14,37 +10,38 @@ import javax.swing.JFrame;
 public class Game extends JFrame implements Runnable {
 
     private GameScreen gameScreen;
-    private transient BufferedImage img;
 
     private static final double FPS_SET = 120.0;
     private static final double UPS_SET = 60.0;
+
+    private transient MyMouseListener myMouseListener;
+    private transient KeyboardListener keyboardListener;
 
     /**
      * @Summary Constructor
      */
     public Game() {
-        importImg();
-
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // null should open in the center
 
-        gameScreen = new GameScreen(img);
+        gameScreen = new GameScreen(this);
         add(gameScreen); // Add a JPanel to the JFrame
         pack(); // Let's the windowmanager set the size for us. Values given in the JPanel
         setVisible(true); // Must be at the end to display correctly
     }
 
     /**
-     * @Summary Imports the sprite sheet
+     * @Summary Initialize Inputs (Mouse/Keyboard)
      */
-    private void importImg() {
-        InputStream is = this.getClass().getClassLoader().getResourceAsStream("spriteatlas.png");
+    private void initInputs() {
+        myMouseListener = new MyMouseListener();
+        keyboardListener = new KeyboardListener();
 
-        try {
-            img = ImageIO.read(is);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        addMouseListener(myMouseListener);
+        addMouseMotionListener(myMouseListener);
+        addKeyListener(keyboardListener);
+
+        requestFocus(); // get focus on this particular component (Jframe)
     }
 
     /**
@@ -64,6 +61,7 @@ public class Game extends JFrame implements Runnable {
      */
     public static void main(String[] args) {
         Game game = new Game();
+        game.initInputs();
         game.start();
     }
 
