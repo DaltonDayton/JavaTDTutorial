@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 public class GameScreen extends JPanel {
 
     private Game game;
-    private Dimension size;
 
     /**
      * @Summary Constructor
@@ -24,6 +23,7 @@ public class GameScreen extends JPanel {
     }
 
     private void setPanelSize() {
+        Dimension size;
         size = new Dimension(640, 640);
         setMinimumSize(size);
         setPreferredSize(size);

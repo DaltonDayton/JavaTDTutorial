@@ -18,14 +18,11 @@ public class Game extends JFrame implements Runnable {
     private static final double FPS_SET = 120.0;
     private static final double UPS_SET = 60.0;
 
-    private transient MyMouseListener myMouseListener;
-    private transient KeyboardListener keyboardListener;
-
     // Classes
-    private Render render;
-    private Menu menu;
-    private Playing playing;
-    private Settings settings;
+    private transient Render render;
+    private transient Menu menu;
+    private transient Playing playing;
+    private transient Settings settings;
 
     /**
      * @Summary Constructor
@@ -54,6 +51,9 @@ public class Game extends JFrame implements Runnable {
      * @Summary Initialize Inputs (Mouse/Keyboard)
      */
     private void initInputs() {
+        MyMouseListener myMouseListener;
+        KeyboardListener keyboardListener;
+
         myMouseListener = new MyMouseListener();
         keyboardListener = new KeyboardListener();
 
