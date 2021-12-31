@@ -1,7 +1,8 @@
 package main;
 
-import java.awt.Graphics;
 import java.awt.Dimension;
+import java.awt.Graphics;
+
 import javax.swing.JPanel;
 
 /**
@@ -11,7 +12,6 @@ public class GameScreen extends JPanel {
 
     private Game game;
     private Dimension size;
-    private Render render;
 
     /**
      * @Summary Constructor
@@ -19,7 +19,6 @@ public class GameScreen extends JPanel {
      */
     public GameScreen(Game game) {
         this.game = game;
-        render = new Render(this);
 
         setPanelSize();
     }
@@ -39,6 +38,6 @@ public class GameScreen extends JPanel {
         // calling superclass JPanel to do all of the graphic calc and drawing
         super.paintComponent(g);
 
-        render.render(g);
+        game.getRender().render(g);
     }
 }

@@ -1,8 +1,12 @@
 package main;
 
 import javax.swing.JFrame;
+
 import inputs.KeyboardListener;
 import inputs.MyMouseListener;
+import scenes.Menu;
+import scenes.Playing;
+import scenes.Settings;
 
 /**
  * @Summary The primary Game class
@@ -17,6 +21,12 @@ public class Game extends JFrame implements Runnable {
     private transient MyMouseListener myMouseListener;
     private transient KeyboardListener keyboardListener;
 
+    // Classes
+    private Render render;
+    private Menu menu;
+    private Playing playing;
+    private Settings settings;
+
     /**
      * @Summary Constructor
      */
@@ -24,10 +34,20 @@ public class Game extends JFrame implements Runnable {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // null should open in the center
 
-        gameScreen = new GameScreen(this);
+        initClasses();
+
         add(gameScreen); // Add a JPanel to the JFrame
         pack(); // Let's the windowmanager set the size for us. Values given in the JPanel
+
         setVisible(true); // Must be at the end to display correctly
+    }
+
+    private void initClasses() {
+        render = new Render(this);
+        gameScreen = new GameScreen(this);
+        menu = new Menu(this);
+        playing = new Playing(this);
+        settings = new Settings(this);
     }
 
     /**
@@ -105,5 +125,22 @@ public class Game extends JFrame implements Runnable {
                 lastTimeCheck = System.currentTimeMillis();
             }
         }
+    }
+
+    // Getters and Setters
+    public Render getRender() {
+        return render;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public Playing getPlaying() {
+        return playing;
+    }
+
+    public Settings getSettings() {
+        return settings;
     }
 }
